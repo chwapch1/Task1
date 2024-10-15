@@ -4,11 +4,5 @@ select id, product_name, pcount from
     	join purchase on product.id = purchase.product_id
     group by product.id, product.product_name
 	) as prod_count
-where pcount = (
-    select max(pcount) from (
-        select count(purchase.product_id) as pcount from product
-        	join purchase on product.id = purchase.product_id
-        group by product.id
-    ) as max_prod_count
-)
-order by id;
+order by pcount desc
+limit 3;
